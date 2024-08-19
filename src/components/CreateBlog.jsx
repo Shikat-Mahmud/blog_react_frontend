@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { BtnBold, BtnBulletList, BtnClearFormatting, BtnItalic, BtnLink, BtnNumberedList, BtnRedo, BtnStrikeThrough, BtnStyles, BtnUnderline, BtnUndo, Editor, EditorProvider, HtmlButton, Separator, Toolbar } from 'react-simple-wysiwyg';
 
 const CreateBlog = () => {
+    const [html, setHtml] = useState('');
+
+    function onChange(e) {
+        setHtml(e.target.value);
+    }
+
     return (
-        <div className="container">
+        <div className="container mb-5">
             <div className="d-flex justify-content-between pt-5 mb-4">
                 <h4>Create Blog</h4>
                 <a href="/" className='btn btn-dark'>Back</a>
@@ -15,7 +22,34 @@ const CreateBlog = () => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="" className='form-label'>Description</label>
-                        <textarea className='form-control' rows={10} placeholder='Blog descriotion'></textarea>
+                        {/* <textarea className='form-control' rows={10} placeholder='Blog descriotion'></textarea> */}
+                        <EditorProvider>
+                            <Editor
+                                value={html}
+                                onChange={onChange}
+                                containerProps={{ style: { height: '300px' } }}
+                                placeholder="Blog description"
+                            >
+                                <Toolbar>
+                                    <BtnUndo />
+                                    <BtnRedo />
+                                    <Separator />
+                                    <BtnBold />
+                                    <BtnItalic />
+                                    <BtnUnderline />
+                                    <BtnStrikeThrough />
+                                    <Separator />
+                                    <BtnNumberedList />
+                                    <BtnBulletList />
+                                    <Separator />
+                                    <BtnLink />
+                                    <BtnClearFormatting />
+                                    <HtmlButton />
+                                    <Separator />
+                                    <BtnStyles />
+                                </Toolbar>
+                            </Editor>
+                        </EditorProvider>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="" className='form-label'>Image</label>
