@@ -12,9 +12,9 @@ const BlogCard = ({blog}) => {
                 <img src={showImage(blog.image)} alt="card image" className='rounded-top-3' />
                 <div className="card-body">
                     <h2 className="h5">{blog.title}</h2>
-                    <p>{blog.description}</p>
+                    <p>{blog.shortDesc}</p>
                     <div className="d-flex justify-content-between">
-                        <a href="#" className="btn btn-dark">Details</a>
+                        <a href={`/blog/${blog.id}`} className="btn btn-dark">Details</a>
                         <a href="#" className="text-dark">
                             <MdOutlineModeEdit />
                         </a>
