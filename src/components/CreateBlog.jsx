@@ -5,11 +5,11 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 const CreateBlog = () => {
-    const [html, setHtml] = useState('');
+    const [desc, setDesc] = useState('');
     const navigate = useNavigate();
 
-    function onChange(e) {
-        setHtml(e.target.value);
+    function onChangeDesc(e) {
+        setDesc(e.target.value);
     }
 
     const {
@@ -20,7 +20,8 @@ const CreateBlog = () => {
     } = useForm()
 
     const formSubmit = async (data) => {
-        const newData = {...data, 'description' : html};
+        const newData = {...data, 'description' : desc};
+        
         const res = await fetch("http://127.0.0.1:8000/api/blog", {
             method: "POST",
             headers: {
@@ -68,8 +69,8 @@ const CreateBlog = () => {
                             {/* <textarea className='form-control' rows={10} placeholder='Blog descriotion'></textarea> */}
                             <EditorProvider>
                                 <Editor
-                                    value={html}
-                                    onChange={onChange}
+                                    value={desc}
+                                    onChange={onChangeDesc}
                                     containerProps={{ style: { height: '300px' } }}
                                     placeholder="Blog description"
                                 >
