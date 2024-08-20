@@ -6,11 +6,17 @@ import { useNavigate } from 'react-router-dom';
 
 const CreateBlog = () => {
     const [desc, setDesc] = useState('');
+    const [file, setFile] = useState(null);
     const navigate = useNavigate();
 
     function onChangeDesc(e) {
         setDesc(e.target.value);
     }
+
+    const handleFileChange = (e) => {
+        const selectedFile = e.target.files[0];
+        setFile(selectedFile);
+    };
 
     const {
         register,
@@ -20,21 +26,45 @@ const CreateBlog = () => {
     } = useForm()
 
     const formSubmit = async (data) => {
-        const newData = {...data, 'description' : desc};
-        
-        const res = await fetch("http://127.0.0.1:8000/api/blog", {
-            method: "POST",
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(newData)
-        });
-
-        toast("Blog added successfully.");
-        navigate('/');
-
-        // console.log(newData);
-    }
+        const formData = new FormData();
+        formData.append('title', data.title);
+        formData.append('shortDesc', data.shortDesc);
+        formData.append('description', desc);
+        formData.append('author', data.author);
+    
+        if (file) {
+            formData.append('image', file);
+        }
+    
+        try {
+            const res = await fetch("http://127.0.0.1:8000/api/blog", {
+                method: "POST",
+                body: formData
+            });
+    
+            // Check if response is JSON
+            const contentType = res.headers.get("content-type");
+            if (contentType && contentType.indexOf("application/json") !== -1) {
+                const response = await res.json();
+    
+                if(response.status === 'true') {
+                    toast("Blog added successfully.");
+                    navigate('/');
+                } else {
+                    toast("Failed to add the blog. Please fix the errors.");
+                }
+            } else {
+                // Handle unexpected content type (e.g., HTML error page)
+                const textResponse = await res.text();
+                console.error("Unexpected response:", textResponse);
+                toast("An error occurred. Please check the server response.");
+            }
+        } catch (error) {
+            console.error("Fetch error:", error);
+            toast("An error occurred. Please try again.");
+        }
+    };
+    
 
     return (
         <div className="container mb-5">
@@ -97,7 +127,10 @@ const CreateBlog = () => {
                         </div>
                         <div className="mb-3">
                             <label className='form-label'>Image</label>
-                            <input type="file" className='form-control' />
+                            <input 
+                            type="file" 
+                            className='form-control'
+                            onChange={handleFileChange} />
                         </div>
                         <div className="mb-3">
                             <label className='form-label'>Author</label>
