@@ -26,7 +26,7 @@ const BlogDetail = () => {
             </div>
         </div>
         <div className='row'>
-            <div className='col-md-12'>
+            <div className='col-md-12 mb-5'>
                 <p>by <strong>{blog.author}</strong> on {blog.date}</p>
 
                 <div className='mt-3 text-secondary'>
@@ -37,7 +37,7 @@ const BlogDetail = () => {
                     (blog.image) && <img className='w-50 mt-3 text-center' src={`http://127.0.0.1:8000/img/${blog.image}`} />
                 }
 
-                <div className='mt-5' dangerouslySetInnerHTML={{ __html: blog.description }}>
+                <div className='my-5' dangerouslySetInnerHTML={{ __html: blog.description }}>
                 {/* <div className='mt-5'>
                     <p>{blog.description}</p> */}
                 </div>

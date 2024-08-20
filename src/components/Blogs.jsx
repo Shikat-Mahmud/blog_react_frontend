@@ -23,11 +23,15 @@ const Blogs = () => {
                 <a href="/create" className='btn btn-dark'>Create</a>
             </div>
             <div className="row">
-                {
-                    (blogs) && blogs.map( (blog) => {
-                        return(<BlogCard blog={blog} key={blog.id} />);
-                    })
-                }
+                {blogs && blogs.length > 0 ? (
+                    blogs.map((blog) => (
+                        <BlogCard blog={blog} key={blog.id} />
+                    ))
+                ) : (
+                    <div className="col-12">
+                        <p className='text-center my-5'>No blogs available at the moment. Please check back later.</p>
+                    </div>
+                )}
             </div>
         </div>
     )
