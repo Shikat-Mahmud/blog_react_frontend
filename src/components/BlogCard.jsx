@@ -31,7 +31,7 @@ const BlogCard = ({ blog }) => {
                     </p>
                     <div className="d-flex justify-content-between">
                         <a href={`/blog/${blog.id}`} className="btn btn-dark">Details</a>
-                        <a href="#" className="text-dark">
+                        <a href={`/edit/blog/${blog.id}`} className="text-dark">
                             <MdOutlineModeEdit />
                         </a>
                     </div>
