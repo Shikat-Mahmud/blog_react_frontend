@@ -30,9 +30,9 @@ const EditBlog = () => {
     };
 
     const fetchBlog = async () => {
-        const res = await fetch("http://127.0.0.1:8000/api/blog/"+params.id);
+        const res = await fetch("http://127.0.0.1:8000/api/blog/" + params.id);
         const result = await res.json();
-        // setBlog(result.data);
+        setBlog(result.data);
         setDesc(result.data.description);
         reset(result.data);
     };
@@ -146,6 +146,12 @@ const EditBlog = () => {
                                 type="file"
                                 className='form-control'
                                 onChange={handleFileChange} />
+
+                            <div>
+                                {
+                                    (blog.image) && <img className='mt-3 text-center' src={`http://127.0.0.1:8000/img/${blog.image}`} style={{ height: '100px' }} />
+                                }
+                            </div>
                         </div>
                         <div className="mb-3">
                             <label className='form-label'>Author</label>
