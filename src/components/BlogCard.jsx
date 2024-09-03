@@ -9,7 +9,7 @@ const BlogCard = ({ blog }) => {
         <div className="col-12 col-md-4 col-lg-3 my-3">
             <div className="card border-0 shadow-lg rounded-3">
                 {/* <img src="https://placehold.co/600x400'" alt="card image" className='rounded-top-3' /> */}
-                <img src={showImage(blog.image)} alt="card image" className='rounded-top-3' style={{maxHeight: '200px', objectFit: 'cover'}} />
+                <img src={showImage(blog.image)} alt="card image" className='rounded-top-3' style={{height: '200px', objectFit: 'cover'}} />
                 <div className="card-body">
                     <h2 style={{
                         display: '-webkit-box',
