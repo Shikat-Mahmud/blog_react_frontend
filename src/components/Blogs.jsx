@@ -25,7 +25,7 @@ const Blogs = () => {
             <div className="row">
                 {blogs && blogs.length > 0 ? (
                     blogs.map((blog) => (
-                        <BlogCard blog={blog} key={blog.id} />
+                        <BlogCard blogs={blogs} setBlogs={setBlogs} blog={blog} key={blog.id} />
                     ))
                 ) : (
                     <div className="col-12">
