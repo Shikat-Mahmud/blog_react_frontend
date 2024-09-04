@@ -67,7 +67,7 @@ const EditBlog = () => {
                 const response = await res.json();
 
                 if (response.status === 'true') {
-                    toast("Blog updated successfully.");
+                    toast.success("Blog updated successfully.");
                     navigate('/');
                 } else {
                     // toast("Failed to update the blog. Please fix the errors.");
