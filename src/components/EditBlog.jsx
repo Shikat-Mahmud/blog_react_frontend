@@ -70,17 +70,23 @@ const EditBlog = () => {
                     toast("Blog updated successfully.");
                     navigate('/');
                 } else {
-                    console.log("Validation errors:", response.errors);
-                    toast("Failed to update the blog. Please fix the errors.");
+                    // toast("Failed to update the blog. Please fix the errors.");
+
+                    // Loop through each error and display it in the toaster
+                    Object.keys(response.errors).forEach((key) => {
+                        response.errors[key].forEach((error) => {
+                            toast.error(error);
+                        });
+                    });
                 }
             } else {
                 const textResponse = await res.text();
                 console.error("Unexpected response:", textResponse);
-                toast("An error occurred. Please check the server response.");
+                toast.error("An error occurred. Please check the server response.");
             }
         } catch (error) {
             console.error("Fetch error:", error);
-            toast("An error occurred. Please try again.");
+            toast.error("An error occurred. Please try again.");
         }
     };
 

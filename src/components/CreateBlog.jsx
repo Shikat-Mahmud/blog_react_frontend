@@ -31,40 +31,47 @@ const CreateBlog = () => {
         formData.append('shortDesc', data.shortDesc);
         formData.append('description', desc);
         formData.append('author', data.author);
-    
+
         if (file) {
             formData.append('image', file);
         }
-    
+
         try {
             const res = await fetch("http://127.0.0.1:8000/api/blog", {
                 method: "POST",
                 body: formData
             });
-    
+
             // Check if response is JSON
             const contentType = res.headers.get("content-type");
             if (contentType && contentType.indexOf("application/json") !== -1) {
                 const response = await res.json();
-    
-                if(response.status === 'true') {
-                    toast("Blog added successfully.");
+
+                if (response.status === 'true') {
+                    toast.success("Blog added successfully.");
                     navigate('/');
                 } else {
-                    toast("Failed to add the blog. Please fix the errors.");
+                    // toast("Failed to add the blog. Please fix the errors.");
+
+                    // Loop through each error and display it in the toaster
+                    Object.keys(response.errors).forEach((key) => {
+                        response.errors[key].forEach((error) => {
+                            toast.error(error);
+                        });
+                    });
                 }
             } else {
                 // Handle unexpected content type (e.g., HTML error page)
                 const textResponse = await res.text();
                 console.error("Unexpected response:", textResponse);
-                toast("An error occurred. Please check the server response.");
+                toast.error("An error occurred. Please check the server response.");
             }
         } catch (error) {
             console.error("Fetch error:", error);
-            toast("An error occurred. Please try again.");
+            toast.error("An error occurred. Please try again.");
         }
     };
-    
+
 
     return (
         <div className="container mb-5">
@@ -127,10 +134,10 @@ const CreateBlog = () => {
                         </div>
                         <div className="mb-3">
                             <label className='form-label'>Image</label>
-                            <input 
-                            type="file" 
-                            className='form-control'
-                            onChange={handleFileChange} />
+                            <input
+                                type="file"
+                                className='form-control'
+                                onChange={handleFileChange} />
                         </div>
                         <div className="mb-3">
                             <label className='form-label'>Author</label>
