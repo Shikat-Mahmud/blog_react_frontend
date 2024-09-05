@@ -46,11 +46,11 @@ const BlogCard = ({ blog, blogs, setBlogs }) => {
                     </p>
                     <div className="d-flex justify-content-between">
                         <a href={`/blog/${blog.id}`} className="btn btn-dark">Details</a>
-                        <div className='m-2'>
-                            <a href="#" onClick={() => handleDeleteBlog(blog.id)} className="bg-danger p-2 rounded text-white me-2">
+                        <div className='d-flex'>
+                            <a href="#" onClick={() => handleDeleteBlog(blog.id)} className="bg-danger p-2 rounded text-white me-2 d-flex align-items-center justify-content-center">
                                 <MdOutlineDelete />
                             </a>
-                            <a href={`/edit/blog/${blog.id}`} className="bg-info p-2 rounded text-white">
+                            <a href={`/edit/blog/${blog.id}`} className="bg-info p-2 rounded text-white d-flex align-items-center justify-content-center">
                                 <MdOutlineModeEdit />
                             </a>
                         </div>
