@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Blogs from './components/Blogs';
 import { Route, Routes } from 'react-router-dom';
